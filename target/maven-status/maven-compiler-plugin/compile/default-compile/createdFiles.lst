@@ -1,1 +1,5 @@
+com\grupocuatro\academiaidiomas\services\IAlumno.class
 com\grupocuatro\academiaidiomas\AcademiaIdiomas.class
+com\grupocuatro\academiaidiomas\services\AlumnoServiceImpl.class
+com\grupocuatro\academiaidiomas\models\Alumno.class
+com\grupocuatro\academiaidiomas\DAO\BaseDatos.class
