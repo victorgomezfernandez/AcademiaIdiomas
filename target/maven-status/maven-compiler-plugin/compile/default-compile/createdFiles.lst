@@ -1,1 +1,7 @@
+models\Alumno.class
 com\grupocuatro\academiaidiomas\AcademiaIdiomas.class
+com\grupocuatro\academiaidiomas\services\CursoServiceImpl.class
+com\grupocuatro\academiaidiomas\DAO\BaseDatos.class
+com\grupocuatro\academiaidiomas\models\Curso.class
+com\grupocuatro\academiaidiomas\services\ICurso.class
+controllers\AcademiaController.class
