@@ -46,7 +46,7 @@ public class ProfesorServiceImpl implements IProfesor {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "DELETE FROM profesores WHERE id LIKE " + id;
+            String sql = "DELETE FROM profesores WHERE id = " + id;
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
             stmt.close();
@@ -81,8 +81,25 @@ public class ProfesorServiceImpl implements IProfesor {
 
     @Override
     public Profesor mostrarProfesores(int id) {
-
-        return null;
+        BaseDatos base = new BaseDatos();
+        base.conectar();
+        Connection conn = base.getConn();
+        Profesor profesor = null;
+        try {
+            String sql = "SELECT * FROM profesor WHERE id = " + id;
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            int idProf = rs.getInt("id");
+            String nombre = rs.getString("nombre");
+            String apellidos = rs.getString("apellidos");
+            String dni = rs.getString("dni");
+            String direccion = rs.getString("direccion");
+            String telefono = rs.getString("telefono");
+            profesor = new Profesor(id, nombre, apellidos, dni, direccion, telefono);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return profesor;
     }
 
     @Override
