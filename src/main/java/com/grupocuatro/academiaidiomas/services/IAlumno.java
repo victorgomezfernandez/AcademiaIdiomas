@@ -10,7 +10,7 @@ import java.util.List;
 public interface IAlumno {
     public boolean agregarAlumno(Alumno alumno);
     public boolean eliminarAlumno(int id);
-    public boolean actualizarAlumno(int id);
+    public boolean actualizarAlumno(int id, Alumno alumno);
     public Alumno mostrarAlumnos(int id);
     public List<Alumno> listarAlumnos();
 }

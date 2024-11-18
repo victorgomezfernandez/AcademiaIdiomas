@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.grupocuatro.academiaidiomas.models;
 
 /**
@@ -11,7 +7,7 @@ package com.grupocuatro.academiaidiomas.models;
 public class Alumno {
     private int id;
     private String nombre;
-    private String apellidos;
+    private String apellido;
     private int edad;
     private String dni;
     private String direccion;
@@ -20,7 +16,7 @@ public class Alumno {
     public Alumno(String nombre, String apellidos, int edad, String dni, String direccion, String telefono) {
         this.id = id;
         this.nombre = nombre;
-        this.apellidos = apellidos;
+        this.apellido = apellidos;
         this.edad = edad;
         this.dni = dni;
         this.direccion = direccion;
@@ -44,11 +40,11 @@ public class Alumno {
     }
 
     public String getApellidos() {
-        return apellidos;
+        return apellido;
     }
 
     public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+        this.apellido = apellidos;
     }
 
     public int getEdad() {
