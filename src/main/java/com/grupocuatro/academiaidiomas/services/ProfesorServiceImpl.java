@@ -24,10 +24,11 @@ public class ProfesorServiceImpl implements IProfesor {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "INSERT INTO profesores (nombre, apellidos, dni, direccion, telefono) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO profesor (id,nombre, apellidos, dni, direccion, telefono) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, profesor.getNombre());
-            stmt.setString(2, profesor.getApellidos());
+            stmt.setInt(1, profesor.getId());
+            stmt.setString(2, profesor.getNombre());
+            stmt.setString(3, profesor.getApellidos());
             stmt.setString(4, profesor.getDni());
             stmt.setString(5, profesor.getDireccion());
             stmt.setString(6, profesor.getTelefono());
@@ -46,7 +47,7 @@ public class ProfesorServiceImpl implements IProfesor {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "DELETE FROM profesores WHERE id = " + id;
+            String sql = "DELETE FROM profesor WHERE id = " + id;
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
             stmt.close();
@@ -63,7 +64,7 @@ public class ProfesorServiceImpl implements IProfesor {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "UPDATE profesor SET nombre = ?, apellidos = ?, direccion = ?, telefono = ?, dnij = ? WHERE id = ?";
+            String sql = "UPDATE profesor SET nombre = ?, apellidos = ?, direccion = ?, telefono = ?, dni = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, profesor.getNombre());
             stmt.setString(2, profesor.getApellidos());
@@ -89,13 +90,15 @@ public class ProfesorServiceImpl implements IProfesor {
             String sql = "SELECT * FROM profesor WHERE id = " + id;
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            int idProf = rs.getInt("id");
-            String nombre = rs.getString("nombre");
-            String apellidos = rs.getString("apellidos");
-            String dni = rs.getString("dni");
-            String direccion = rs.getString("direccion");
-            String telefono = rs.getString("telefono");
-            profesor = new Profesor(id, nombre, apellidos, dni, direccion, telefono);
+            if (rs.next()) {
+                int idProf = rs.getInt("id");
+                String nombre = rs.getString("nombre");
+                String apellidos = rs.getString("apellidos");
+                String dni = rs.getString("dni");
+                String direccion = rs.getString("direccion");
+                String telefono = rs.getString("telefono");
+                profesor = new Profesor(idProf, nombre, apellidos, dni, direccion, telefono);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -109,7 +112,7 @@ public class ProfesorServiceImpl implements IProfesor {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "SELECT * FROM profesores";
+            String sql = "SELECT * FROM profesor";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
