@@ -6,7 +6,7 @@ import java.util.List;
 public interface IMatricula {
     public boolean agregarMatricula(Matricula matricula);
     public boolean eliminarMatricula(int id);
-    public boolean actualizarMatricula(Matricula matricula);
+    public boolean actualizarMatricula(int id, Matricula matricula);
     public Matricula mostrarMatricula(int id);
-    public List<Matricula> listarMatricula(int id);
+    public List<Matricula> listarMatricula();
 }

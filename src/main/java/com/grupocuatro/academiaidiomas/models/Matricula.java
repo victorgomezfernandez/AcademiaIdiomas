@@ -15,7 +15,7 @@ public class Matricula {
     private int id_alumno;
     private int nota;
 
-    public Matricula(int id, int id_curso, int id_alumno, int nota) {
+    public Matricula(int id_curso, int id_alumno, int nota) {
         this.id = id;
         this.id_curso = id_curso;
         this.id_alumno = id_alumno;

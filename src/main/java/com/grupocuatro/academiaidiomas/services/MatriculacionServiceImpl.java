@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,12 +23,11 @@ public class MatriculacionServiceImpl implements IMatricula {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "INSERT INTO matricula (id_alumno, id_curso, nota) VALUES (?, ?, ?, ? )";
+            String sql = "INSERT INTO matricula (id_alumno, id_curso, nota) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, matricula.getId_alumno());
             stmt.setInt(2, matricula.getId_curso());
             stmt.setInt(3, matricula.getNota());
-            stmt.setInt(4, matricula.getId());
 
             stmt.executeUpdate();
             return true;
@@ -54,19 +54,19 @@ public class MatriculacionServiceImpl implements IMatricula {
     }
 
     @Override
-    public boolean actualizarMatricula(Matricula matricula) {
+    public boolean actualizarMatricula(int id, Matricula matricula) {
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
 
         try {
-            String sql = "UPDATE matricula SET Id_alumno = ?, Id_curso = ?, getNota = ?, id = ? WHERE id = ?";
+            String sql = "UPDATE matricula SET id_alumno = ?, id_curso = ?, nota = ? WHERE id = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, matricula.getId_alumno());
             stmt.setInt(2, matricula.getId_curso());
             stmt.setInt(3, matricula.getNota());
-            stmt.setInt(4, matricula.getId());
+            stmt.setInt(4, id);
 
             stmt.executeUpdate();
             return true;
@@ -99,13 +99,13 @@ public class MatriculacionServiceImpl implements IMatricula {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                int idMatricula = rs.getInt("id");
+                int id_Matricula = rs.getInt("id");
                 int id_curso = rs.getInt("id_curso");
                 int id_alumno = rs.getInt("id_alumno");
                 int nota = rs.getInt("nota");
 
-                matricula = new Matricula(id, id_curso, id_alumno, nota);
-                matricula.setId(idMatricula);  // Establece el ID que no se pasa en el constructor
+                matricula = new Matricula(id_curso, id_alumno, nota);
+                matricula.setId(id_Matricula);  // Establece el ID que no se pasa en el constructor
 
                 // Imprimir los datos por la terminal
                 System.out.println("id: " + id);
@@ -128,8 +128,41 @@ public class MatriculacionServiceImpl implements IMatricula {
     }
 
     @Override
-    public List<Matricula> listarMatricula(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Matricula> listarMatricula() {
+        BaseDatos base = new BaseDatos();
+        base.conectar();
+        Connection conn = base.getConn();
+
+        List<Matricula> matriculas = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM alumno";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int id_curso = rs.getInt("id_curso");
+                int id_alumno = rs.getInt("id_alumno");
+                int nota = rs.getInt("nota");
+
+                Matricula matricula = new Matricula(id_curso, id_alumno, nota);
+                matricula.setId(id);  
+                matriculas.add(matricula);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar alumnos: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
+        }
+
+        return matriculas;
     }
 
 }
