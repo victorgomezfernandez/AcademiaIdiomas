@@ -15,26 +15,30 @@ public class InfoAlumnoForm extends javax.swing.JFrame {
 
     public InfoAlumnoForm(Integer alumnoID, String nombre, String apellidos, Integer edad, String dni, String direccion, String telefono, Integer colegioId) {
         initComponents();
-        id = colegioId;
         Alumno.setText("Alumno: " + nombre + " " + apellidos);
-        cargarHistorialEnTabla(id);
-        
+        if (colegioId == null) {
+            Colegio.setText("Colegio: No asignado");
+            DireccionColegio.setText("Dirección: No disponible");
+        } else {
+            cargarHistorialEnTabla(colegioId);
+        }
 
     }
 
     private void cargarHistorialEnTabla(Integer id) {
-        
-        Colegio colegio = colegioService.mostrarColegio(id);
-        String nombreColegio = colegio.getNombre();
-        String direccionColegio = colegio.getDireccion();
 
-        if (id == null){
+        Colegio colegio = colegioService.mostrarColegio(id);
+
+        if (colegio == null) {
             Colegio.setVisible(false);
             DireccionColegio.setVisible(false);
-        }else{
-        Colegio.setText("Colegio: " + nombreColegio );
-        DireccionColegio.setText("Dirección:" + direccionColegio);
+        } else {
+            String nombreColegio = colegio.getNombre();
+            String direccionColegio = colegio.getDireccion();
+            Colegio.setText("Colegio: " + nombreColegio);
+            DireccionColegio.setText("Dirección: " + direccionColegio);
         }
+
     }
 
     /**
