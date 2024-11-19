@@ -21,7 +21,7 @@ public class AlumnoServiceImpl implements IAlumno {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "INSERT INTO alumno (nombre, apellido, edad, dni, direccion, telefono, colegioId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO alumno (nombre, apellido, edad, dni, direccion, telefono, colegio_Id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, alumno.getNombre());
@@ -30,7 +30,13 @@ public class AlumnoServiceImpl implements IAlumno {
             stmt.setString(4, alumno.getDni());
             stmt.setString(5, alumno.getDireccion());
             stmt.setString(6, alumno.getTelefono());
-            stmt.setInt(7, alumno.getColegioId());
+
+            // Usar setObject para permitir null en colegio_Id
+            if (alumno.getColegioId() != null) {
+                stmt.setInt(7, alumno.getColegioId()); // Si el valor no es null
+            } else {
+                stmt.setNull(7, java.sql.Types.INTEGER); // Si el valor es null
+            }
 
             stmt.executeUpdate();
             return true;
@@ -83,7 +89,7 @@ public class AlumnoServiceImpl implements IAlumno {
         Connection conn = base.getConn();
 
         try {
-            String sql = "UPDATE alumno SET nombre = ?, apellido = ?, edad = ?, dni = ?, direccion = ?, telefono = ?, colegioId = ? WHERE id = ?";
+            String sql = "UPDATE alumno SET nombre = ?, apellido = ?, edad = ?, dni = ?, direccion = ?, telefono = ? WHERE id = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, alumno.getNombre());
@@ -92,8 +98,7 @@ public class AlumnoServiceImpl implements IAlumno {
             stmt.setString(4, alumno.getDni());
             stmt.setString(5, alumno.getDireccion());
             stmt.setString(6, alumno.getTelefono());
-            stmt.setInt(7, alumno.getColegioId());
-            stmt.setInt(8, id);
+            stmt.setInt(7, id);
 
             stmt.executeUpdate();
             return true;
@@ -138,7 +143,6 @@ public class AlumnoServiceImpl implements IAlumno {
                 alumno = new Alumno(nombre, apellido, edad, dni, direccion, telefono, colegioId);
                 alumno.setId(alumnoId);  // Establece el ID que no se pasa en el constructor
 
-                
             }
         } catch (Exception e) {
             System.out.println("Error al mostrar alumno: " + e.getMessage());
@@ -176,13 +180,16 @@ public class AlumnoServiceImpl implements IAlumno {
                 String dni = rs.getString("dni");
                 String direccion = rs.getString("direccion");
                 String telefono = rs.getString("telefono");
+
+                // Leer el valor de colegioId y verificar si es null
                 Integer colegioId = rs.getInt("colegio_Id");
+                if (rs.wasNull()) {
+                    colegioId = null;
+                }
 
                 Alumno alumno = new Alumno(nombre, apellido, edad, dni, direccion, telefono, colegioId);
-                alumno.setId(id);  
+                alumno.setId(id);
                 alumnos.add(alumno);
-
-                
             }
         } catch (Exception e) {
             System.out.println("Error al listar alumnos: " + e.getMessage());
@@ -198,5 +205,4 @@ public class AlumnoServiceImpl implements IAlumno {
 
         return alumnos;
     }
-
 }
