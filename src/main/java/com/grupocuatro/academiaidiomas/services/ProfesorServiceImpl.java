@@ -13,6 +13,7 @@ import com.grupocuatro.academiaidiomas.models.Profesor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +38,14 @@ public class ProfesorServiceImpl implements IProfesor {
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
         }
         return false;
     }
@@ -54,7 +63,16 @@ public class ProfesorServiceImpl implements IProfesor {
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
         }
+
         return false;
     }
 
@@ -76,6 +94,14 @@ public class ProfesorServiceImpl implements IProfesor {
             stmt.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
         }
         return false;
     }
@@ -97,11 +123,21 @@ public class ProfesorServiceImpl implements IProfesor {
                 String dni = rs.getString("dni");
                 String direccion = rs.getString("direccion");
                 String telefono = rs.getString("telefono");
-                profesor = new Profesor(idProf, nombre, apellidos, dni, direccion, telefono);
+                profesor = new Profesor(nombre, apellidos, dni, direccion, telefono);
+                profesor.setId(idProf);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
         }
+
         return profesor;
     }
 
@@ -122,14 +158,24 @@ public class ProfesorServiceImpl implements IProfesor {
                 String dni = rs.getString("dni");
                 String direccion = rs.getString("direccion");
                 String telefono = rs.getString("telefono");
-                Profesor profesor = new Profesor(id, nombre, apellidos, dni, direccion, telefono);
+                Profesor profesor = new Profesor(nombre, apellidos, dni, direccion, telefono);
+                profesor.setId(id);
                 profesores.add(profesor);
             }
             rs.close();
             stmt.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
         }
+
         return profesores;
     }
 }

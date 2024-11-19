@@ -11,7 +11,7 @@ public class AcademiaIdiomas {
 
     public static void main(String[] args) {
         ProfesorServiceImpl pi1 = new ProfesorServiceImpl();
-        Profesor p1 = new Profesor (2, "Perro", "Sanxe", "6666666A", "infierno", "6666666");
+        Profesor p1 = new Profesor ("Perro", "Sanxe", "6666666A", "infierno", "6666666");
         pi1.agregarProfesor(p1);
         List<Profesor> profesores = new LinkedList<>();
         profesores = pi1.listarProfesores();

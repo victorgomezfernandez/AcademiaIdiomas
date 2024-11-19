@@ -64,8 +64,7 @@ public class Profesor {
         this.telefono = telefono;
     }
 
-    public Profesor(int id,String nombre, String apellidos, String dni, String direccion, String telefono) {
-        this.id = id;
+    public Profesor(String nombre, String apellidos, String dni, String direccion, String telefono) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
