@@ -21,16 +21,15 @@ public class CursoServiceImpl implements ICurso {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "INSERT INTO curso (idioma, nivel, duracion, hora_Ini, f_Ini, hora_Fin, f_Fin) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+            String sql = "INSERT INTO curso (idioma, nivel, f_inicio, f_fin, h_inicio, h_fin, duracion) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, curso.getIdioma());
             stmt.setString(2, curso.getNivel());
-            stmt.setString(3, curso.getDuracion());
-            stmt.setString(4, curso.getHoraIni());
-            stmt.setString(5, curso.getFechaIni());
+            stmt.setString(3, curso.getFechaIni());
+            stmt.setString(4, curso.getFechaFin());
+            stmt.setString(5, curso.getHoraIni());
             stmt.setString(6, curso.getHoraFin());
-            stmt.setString(7, curso.getFechaFin());
+            stmt.setString(7, curso.getDuracion());
 
             stmt.executeUpdate();
             return true;
@@ -62,16 +61,15 @@ public class CursoServiceImpl implements ICurso {
         Connection conn = base.getConn();
 
         try {
-            String sql = "UPDATE curso SET idioma=?, nivel=?, duracion=?, hora_Ini=?, f_Ini=?, hora_Fin=?, f_Fin=? WHERE id=?";
-
+            String sql = "UPDATE curso SET idioma=?, nivel=?, f_inicio=?, f_fin=?, h_inicio=?, h_fin=?, duracion=? WHERE id=?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, curso.getIdioma());
             stmt.setString(2, curso.getNivel());
-            stmt.setString(3, curso.getDuracion());
-            stmt.setString(4, curso.getHoraIni());
-            stmt.setString(5, curso.getFechaIni());
+            stmt.setString(3, curso.getFechaIni());
+            stmt.setString(4, curso.getFechaFin());
+            stmt.setString(5, curso.getHoraIni());
             stmt.setString(6, curso.getHoraFin());
-            stmt.setString(7, curso.getFechaFin());
+            stmt.setString(7, curso.getDuracion());
             stmt.setInt(8, curso.getId()); // Set the ID for the WHERE clause
             int rowsAffected = stmt.executeUpdate();
             System.out.println("Update" + curso.getId());
@@ -107,10 +105,10 @@ public class CursoServiceImpl implements ICurso {
                         rs.getString("idioma"),
                         rs.getString("nivel"),
                         rs.getString("duracion"),
-                        rs.getString("hora_Ini"),
-                        rs.getString("f_Ini"),
-                        rs.getString("hora_Fin"),
-                        rs.getString("f_Fin")
+                        rs.getString("h_inicio"),
+                        rs.getString("f_inicio"),
+                        rs.getString("h_fin"),
+                        rs.getString("f_fin")
                 );
                 curso.setId(rs.getInt("id"));
                 cursos.add(curso);
@@ -136,7 +134,7 @@ public class CursoServiceImpl implements ICurso {
         try {
             // Consulta para obtener los cursos donde el alumno esté matriculado
             String sql = """
-        SELECT c.id, c.idioma, c.nivel, c.duracion, c.hora_ini, c.fecha_ini, c.hora_fin, c.fecha_fin
+        SELECT c.id, c.idioma, c.nivel, c.f_inicio, c.f_fin, c.h_inicio, c.h_fin, c.duracion
         FROM curso c
         JOIN matricula m ON c.id = m.id_curso
         WHERE m.id_alumno = ?;
@@ -153,10 +151,10 @@ public class CursoServiceImpl implements ICurso {
                 String idioma = rs.getString("idioma");
                 String nivel = rs.getString("nivel");
                 String duracion = rs.getString("duracion");
-                String horaIni = rs.getString("hora_ini");
-                String fechaIni = rs.getString("fecha_ini");
-                String horaFin = rs.getString("hora_fin");
-                String fechaFin = rs.getString("fecha_fin");
+                String horaIni = rs.getString("h_inicio");
+                String fechaIni = rs.getString("f_inicio");
+                String horaFin = rs.getString("h_fin");
+                String fechaFin = rs.getString("f_fin");
 
                 // Crear el objeto Curso y añadirlo a la lista
                 Curso curso = new Curso(idioma, nivel, duracion, horaFin, horaIni, fechaFin, fechaIni);

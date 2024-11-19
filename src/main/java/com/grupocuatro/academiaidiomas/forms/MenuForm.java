@@ -4,6 +4,8 @@
  */
 package com.grupocuatro.academiaidiomas.forms;
 
+import vista.VistaCurso;
+
 /**
  *
  * @author luish
@@ -27,6 +29,10 @@ public class MenuForm extends javax.swing.JFrame {
     private void initComponents() {
 
         AlumnosOpen = new javax.swing.JButton();
+        profesoresButton = new javax.swing.JButton();
+        matriculasButton = new javax.swing.JButton();
+        cursosButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,21 +43,59 @@ public class MenuForm extends javax.swing.JFrame {
             }
         });
 
+        profesoresButton.setText("Mostrar Profesores");
+        profesoresButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profesoresButtonActionPerformed(evt);
+            }
+        });
+
+        matriculasButton.setText("Mostrar Matrículas");
+        matriculasButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                matriculasButtonActionPerformed(evt);
+            }
+        });
+
+        cursosButton.setText("Mostrar Cursos");
+        cursosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cursosButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("SELECCIONA UNA TABLA:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(AlumnosOpen)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addComponent(profesoresButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(AlumnosOpen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(matriculasButton))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cursosButton)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(AlumnosOpen)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cursosButton)
+                    .addComponent(matriculasButton)
+                    .addComponent(AlumnosOpen)
+                    .addComponent(profesoresButton))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -63,6 +107,24 @@ public class MenuForm extends javax.swing.JFrame {
         AlumnosForm alumnosForm = new AlumnosForm();
         alumnosForm.setVisible(true);
     }//GEN-LAST:event_AlumnosOpenActionPerformed
+
+    private void profesoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profesoresButtonActionPerformed
+        this.dispose();
+        ProfesoresForm profesoresForm = new ProfesoresForm();
+        profesoresForm.setVisible(true);
+    }//GEN-LAST:event_profesoresButtonActionPerformed
+
+    private void matriculasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matriculasButtonActionPerformed
+        this.dispose();
+        MatriculaForm matriculaForm = new MatriculaForm();
+        matriculaForm.setVisible(true);
+    }//GEN-LAST:event_matriculasButtonActionPerformed
+
+    private void cursosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cursosButtonActionPerformed
+        this.dispose();
+        VistaCurso vistaCurso = new VistaCurso();
+        vistaCurso.setVisible(true);
+    }//GEN-LAST:event_cursosButtonActionPerformed
     
     //metodo para volver a hacer visible este formulario:
     private void visibleForm(){
@@ -106,5 +168,9 @@ public class MenuForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AlumnosOpen;
+    private javax.swing.JButton cursosButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton matriculasButton;
+    private javax.swing.JButton profesoresButton;
     // End of variables declaration//GEN-END:variables
 }

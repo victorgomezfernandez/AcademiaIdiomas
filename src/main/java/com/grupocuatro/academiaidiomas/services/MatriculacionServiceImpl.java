@@ -136,7 +136,7 @@ public class MatriculacionServiceImpl implements IMatricula {
         List<Matricula> matriculas = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM alumno";
+            String sql = "SELECT * FROM matricula";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
