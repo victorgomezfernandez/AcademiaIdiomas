@@ -1,5 +1,6 @@
-package controllers;
+package com.grupocuatro.academiaidiomas.services;
 
+import com.grupocuatro.academiaidiomas.models.Alumno;
 import com.grupocuatro.academiaidiomas.models.Curso;
 import com.grupocuatro.academiaidiomas.services.CursoServiceImpl;
 import java.awt.event.MouseAdapter;
@@ -9,7 +10,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import models.Alumno;
 import vista.VistaCurso;
 import vista.VistaCursoEditar;
 

@@ -147,7 +147,7 @@ public class MatriculacionServiceImpl implements IMatricula {
                 int nota = rs.getInt("nota");
 
                 Matricula matricula = new Matricula(id_curso, id_alumno, nota);
-                matricula.setId(id);  
+                matricula.setId(id);
                 matriculas.add(matricula);
             }
         } catch (Exception e) {
@@ -163,6 +163,39 @@ public class MatriculacionServiceImpl implements IMatricula {
         }
 
         return matriculas;
+    }
+
+    @Override
+    public List<Integer> listarNotas(int idAlumno) {
+        BaseDatos base = new BaseDatos();
+        base.conectar();
+        Connection conn = base.getConn();
+
+        List<Integer> notas = new ArrayList<>();
+
+        try {
+            String sql = "SELECT nota FROM matricula WHERE id_alumno = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idAlumno);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int nota = rs.getInt("nota");
+                notas.add(nota);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al listar notas: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
+        }
+
+        return notas;
     }
 
 }

@@ -5,7 +5,7 @@
 package vista;
 
 import com.grupocuatro.academiaidiomas.models.Curso;
-import controllers.AcademiaController;
+import com.grupocuatro.academiaidiomas.services.AcademiaController;
 import javax.swing.JFrame;
 
 /**

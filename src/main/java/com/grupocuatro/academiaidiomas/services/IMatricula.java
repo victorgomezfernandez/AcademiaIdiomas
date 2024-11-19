@@ -9,4 +9,5 @@ public interface IMatricula {
     public boolean actualizarMatricula(int id, Matricula matricula);
     public Matricula mostrarMatricula(int id);
     public List<Matricula> listarMatricula();
+    public List<Integer> listarNotas(int idAlumno);
 }

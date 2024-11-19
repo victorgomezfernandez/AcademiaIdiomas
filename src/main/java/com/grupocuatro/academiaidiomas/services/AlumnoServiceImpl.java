@@ -2,6 +2,7 @@ package com.grupocuatro.academiaidiomas.services;
 
 import com.grupocuatro.academiaidiomas.DAO.BaseDatos;
 import com.grupocuatro.academiaidiomas.models.Alumno;
+import com.grupocuatro.academiaidiomas.models.Curso;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -205,4 +206,6 @@ public class AlumnoServiceImpl implements IAlumno {
 
         return alumnos;
     }
+
+    
 }

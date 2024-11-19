@@ -74,7 +74,7 @@ public class CursoServiceImpl implements ICurso {
             stmt.setString(7, curso.getFechaFin());
             stmt.setInt(8, curso.getId()); // Set the ID for the WHERE clause
             int rowsAffected = stmt.executeUpdate();
-            System.out.println("Update"+ curso.getId());
+            System.out.println("Update" + curso.getId());
             return true;
 
         } catch (SQLException e) {
@@ -125,6 +125,49 @@ public class CursoServiceImpl implements ICurso {
 
         return cursos;
 
+    }
+
+    public List<Curso> listarIdiomaYNivel(int idAlumno) {
+        BaseDatos base = new BaseDatos();
+        base.conectar();
+        Connection conn = base.getConn();
+        List<Curso> listaCursos = new ArrayList<>();
+
+        try {
+            String sql = """
+        SELECT c.id, c.idioma, c.nivel, c.duracion, c.horaFin, c.horaIni, c.fechaFin, c.fechaIni
+        FROM curso c
+        INNER JOIN matricula m ON c.id = m.id_curso
+        WHERE m.id_alumno = ?
+        """;
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idAlumno);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int idCurso = rs.getInt("id");
+                String idioma = rs.getString("idioma");
+                String nivel = rs.getString("nivel");
+                String duracion = rs.getString("duracion");
+                String horaFin = rs.getString("horaFin");
+                String horaIni = rs.getString("horaIni");
+                String fechaFin = rs.getString("fechaFin");
+                String fechaIni = rs.getString("fechaIni");
+
+                // Crear un nuevo objeto Curso con los datos obtenidos y agregarlo a la lista
+                Curso curso = new Curso(idioma, nivel, duracion, horaFin, horaIni, fechaFin, fechaIni);
+                curso.setId(idCurso); // Asegúrate de que el método setId esté en la clase Curso
+                listaCursos.add(curso);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println("Error fetching cursos: " + e.getMessage());
+        }
+        return listaCursos;
     }
 
     @Override

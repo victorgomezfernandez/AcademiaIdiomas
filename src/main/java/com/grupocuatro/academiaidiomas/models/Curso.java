@@ -93,7 +93,7 @@ public class Curso {
         this.fechaIni = fechaIni;
     }
 
-  
+    
 
    
     

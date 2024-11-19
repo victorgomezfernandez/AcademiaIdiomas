@@ -1,8 +1,14 @@
 package com.grupocuatro.academiaidiomas.forms;
 
 import com.grupocuatro.academiaidiomas.models.Colegio;
+import com.grupocuatro.academiaidiomas.models.Curso;
+import com.grupocuatro.academiaidiomas.models.Matricula;
 import com.grupocuatro.academiaidiomas.services.AlumnoServiceImpl;
 import com.grupocuatro.academiaidiomas.services.ColegioServiceImpl;
+import com.grupocuatro.academiaidiomas.services.CursoServiceImpl;
+import com.grupocuatro.academiaidiomas.services.MatriculacionServiceImpl;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,7 +17,8 @@ import com.grupocuatro.academiaidiomas.services.ColegioServiceImpl;
 public class InfoAlumnoForm extends javax.swing.JFrame {
 
     private final ColegioServiceImpl colegioService = new ColegioServiceImpl();
-    private int id;
+    private final MatriculacionServiceImpl matriculaService = new MatriculacionServiceImpl();
+    private final CursoServiceImpl cursoService = new CursoServiceImpl();
 
     public InfoAlumnoForm(Integer alumnoID, String nombre, String apellidos, Integer edad, String dni, String direccion, String telefono, Integer colegioId) {
         initComponents();
@@ -20,12 +27,13 @@ public class InfoAlumnoForm extends javax.swing.JFrame {
             Colegio.setText("Colegio: No asignado");
             DireccionColegio.setText("Dirección: No disponible");
         } else {
-            cargarHistorialEnTabla(colegioId);
+            cargarColegio(colegioId);
         }
+        cargarNotasEnTabla(alumnoID);
 
     }
 
-    private void cargarHistorialEnTabla(Integer id) {
+    private void cargarColegio(Integer id) {
 
         Colegio colegio = colegioService.mostrarColegio(id);
 
@@ -40,6 +48,29 @@ public class InfoAlumnoForm extends javax.swing.JFrame {
         }
 
     }
+
+    private void cargarNotasEnTabla(int idAlumno) {
+        List<Integer> notas = matriculaService.listarNotas(idAlumno);
+
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        
+        for (Integer nota : notas) {
+            model.addRow(new Object[]{"Curso desconocido","", nota}); 
+        }
+    }
+    
+    /**public void cargarCursoTabla() {
+        
+    List 
+    for (int i = 0; i < model.getRowCount(); i++) {
+        // Aquí actualizamos la segunda columna de la tabla, pero dejamos intactas las demás columnas
+        model.setValueAt("Nuevo valor", i, 1);  // Actualiza la segunda columna
+        model.setValueAt(notas.get(i), i, 2);   // Actualiza la columna de la nota (columna 3, índice 2)
+    }
+}*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,13 +92,13 @@ public class InfoAlumnoForm extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Curso", "Nota"
+                "Curso", "Nivel", "Nota"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -114,11 +145,11 @@ public class InfoAlumnoForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Alumno)
                     .addComponent(BackButton))
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Colegio)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DireccionColegio)
-                .addGap(8, 8, 8)
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
