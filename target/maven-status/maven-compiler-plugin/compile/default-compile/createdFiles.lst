@@ -1,5 +1,16 @@
 models\Alumno.class
+com\grupocuatro\academiaidiomas\forms\MatriculaForm.class
+com\grupocuatro\academiaidiomas\forms\MenuForm$2.class
+com\grupocuatro\academiaidiomas\forms\MenuForm$1.class
+com\grupocuatro\academiaidiomas\forms\MatriculaForm$3.class
 com\grupocuatro\academiaidiomas\AcademiaIdiomas.class
+com\grupocuatro\academiaidiomas\services\IMatricula.class
+com\grupocuatro\academiaidiomas\forms\MatriculaForm$4.class
 com\grupocuatro\academiaidiomas\models\Matricula.class
 com\grupocuatro\academiaidiomas\DAO\BaseDatos.class
+com\grupocuatro\academiaidiomas\forms\MatriculaForm$2.class
+com\grupocuatro\academiaidiomas\services\MatriculacionServiceImpl.class
+com\grupocuatro\academiaidiomas\forms\MatriculaForm$5.class
+com\grupocuatro\academiaidiomas\forms\MatriculaForm$1.class
+com\grupocuatro\academiaidiomas\forms\MenuForm.class
 controllers\AcademiaController.class

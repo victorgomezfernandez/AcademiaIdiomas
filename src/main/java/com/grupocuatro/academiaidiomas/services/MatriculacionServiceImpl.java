@@ -26,6 +26,8 @@ public class MatriculacionServiceImpl implements IMatricula {
             String sql = "INSERT INTO matricula (id_alumno, id_curso, nota) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, matricula.getId_alumno());
+            stmt.setInt(1, matricula.getId_alumno());
+
             stmt.setInt(2, matricula.getId_curso());
             stmt.setInt(3, matricula.getNota());
 
@@ -136,7 +138,7 @@ public class MatriculacionServiceImpl implements IMatricula {
         List<Matricula> matriculas = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM alumno";
+            String sql = "SELECT * FROM matricula";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
@@ -147,11 +149,11 @@ public class MatriculacionServiceImpl implements IMatricula {
                 int nota = rs.getInt("nota");
 
                 Matricula matricula = new Matricula(id_curso, id_alumno, nota);
-                matricula.setId(id);  
+                matricula.setId(id);
                 matriculas.add(matricula);
             }
         } catch (Exception e) {
-            System.out.println("Error al listar alumnos: " + e.getMessage());
+            System.out.println("Error al listar matriculas: " + e.getMessage());
         } finally {
             try {
                 if (conn != null) {

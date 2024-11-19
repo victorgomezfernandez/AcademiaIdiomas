@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author Alejandro
  */
 public class BaseDatos {
-     private static final String URL = "jdbc:mysql://localhost:3306/academia_idiomas";
+     private static final String URL = "jdbc:mysql://localhost:3306/db_academia";
     private static final String USER = "root";
     private static final String PASSWORD = "S@nFrancisco";
 

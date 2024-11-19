@@ -1,20 +1,106 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.grupocuatro.academiaidiomas.forms;
+
+import com.grupocuatro.academiaidiomas.models.Matricula;
+import com.grupocuatro.academiaidiomas.services.MatriculacionServiceImpl;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Alejandro
  */
-public class MatriculaForm extends javax.swing.JPanel {
+public class MatriculaForm extends javax.swing.JFrame {
 
     /**
      * Creates new form MatriculaForm
      */
+    private final MatriculacionServiceImpl matriculaService = new MatriculacionServiceImpl();
+
     public MatriculaForm() {
         initComponents();
+        cargarMatriculasEnTabla();
+    }
+
+    private void cargarMatriculasEnTabla() {
+        List<Matricula> matriculas = matriculaService.listarMatricula();
+        DefaultTableModel modelo = (DefaultTableModel) matriculasTable.getModel();
+        modelo.setRowCount(0);
+        for (Matricula matricula : matriculas) {
+            Object[] fila = {
+                matricula.getId(),
+                matricula.getId_curso(),
+                matricula.getId_alumno(),
+                matricula.getNota()
+            };
+            modelo.addRow(fila);
+        }
+        if (modelo.getRowCount() == 0) {
+            modelo.addRow(new Object[]{"", "", "", ""});
+        }
+    }
+
+    private void nuevaMatricula() {
+        DefaultTableModel modeloNuevo = (DefaultTableModel) addMatriculasTable.getModel();
+        DefaultTableModel modeloMatricula = (DefaultTableModel) addMatriculasTable.getModel();
+        boolean idExistente = false;
+        if (modeloNuevo.getRowCount() > 0) {
+            Object idObj = modeloNuevo.getValueAt(0, 0);
+            Object id_cursoObj = modeloNuevo.getValueAt(0, 1);
+            Object id_alumnoObj = modeloNuevo.getValueAt(0, 2);
+            Object notaObj = modeloNuevo.getValueAt(0, 3);
+            String id = idObj != null ? idObj.toString() : "";
+            String id_curso = id_cursoObj != null ? id_cursoObj.toString() : "";
+            String id_alumno = id_alumnoObj != null ? id_alumnoObj.toString() : "";
+            String nota = notaObj != null ? notaObj.toString() : "";
+            if (!id.isEmpty()) {
+                if (id_curso.isEmpty() || id_alumno.isEmpty() || nota.isEmpty()) {
+                    System.out.println("Completa todos los campos");
+                } else {
+                    for (int i = 0; i < modeloMatricula.getRowCount(); i++) {
+                        if (modeloMatricula.getValueAt(i, 0).toString().equals(id)) {
+                            int idCursoInt = Integer.parseInt(id_curso);
+                            int idAlumnoInt = Integer.parseInt(id_alumno);
+                            int notaInt = Integer.parseInt(nota);
+                            Matricula matricula = new Matricula(idCursoInt, idAlumnoInt, notaInt);
+                            int idMatriculaInt = Integer.parseInt(id);
+                            matricula.setId(Integer.parseInt(id));
+                            matriculaService.actualizarMatricula(idMatriculaInt, matricula);
+                            cargarMatriculasEnTabla();
+                        }
+                        idExistente = true;
+                        break;
+                    }
+                }
+            }
+            if (id_curso.isEmpty() || id_alumno.isEmpty() || nota.isEmpty()) {
+                System.out.println("Completa todos los campos");
+            } else {
+                int idAlumnoInt = Integer.parseInt(id_alumno);
+                int idCursoInt = Integer.parseInt(id_curso);
+                int notaInt = Integer.parseInt(nota);
+                Matricula nuevo = new Matricula(idCursoInt, idAlumnoInt, notaInt);
+                if (!id.isEmpty()) {
+                    nuevo.setId(Integer.parseInt(id));
+                }
+                matriculaService.agregarMatricula(nuevo);
+                cargarMatriculasEnTabla();
+            }
+        }
+    }
+
+    private void borrarMatricula() {
+        DefaultTableModel modelo = (DefaultTableModel) matriculasTable.getModel();
+        int filaSeleccionada = matriculasTable.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            Object idObj = modelo.getValueAt(filaSeleccionada, 0);
+            int id = Integer.parseInt(idObj.toString());
+            matriculaService.eliminarMatricula(id);
+            cargarMatriculasEnTabla();
+        }
     }
 
     /**
@@ -26,19 +112,199 @@ public class MatriculaForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        matriculasTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        addMatriculasTable = new javax.swing.JTable();
+        updateButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        matriculasTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Id", "Id_curso", "Id_alumno", "Nota"
+            }
+        ));
+        jScrollPane1.setViewportView(matriculasTable);
+
+        addMatriculasTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null}
+            },
+            new String [] {
+                "Id", "Id_curso", "Id_alumno", "Nota"
+            }
+        ));
+        jScrollPane2.setViewportView(addMatriculasTable);
+
+        updateButton.setText("Actualizar");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setText("Borrar");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        addButton.setText("Añadir");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addButton))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(updateButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(backButton)))
+                .addContainerGap(102, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteButton)
+                    .addComponent(updateButton)
+                    .addComponent(backButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(addButton)
+                        .addGap(235, 235, 235))))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 828, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 610, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        cargarMatriculasEnTabla();
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        borrarMatricula();
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+
+        nuevaMatricula();
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MatriculaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MatriculaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MatriculaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MatriculaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MatriculaForm().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JTable addMatriculasTable;
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable matriculasTable;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
