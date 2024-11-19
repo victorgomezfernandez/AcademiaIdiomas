@@ -21,7 +21,7 @@ public class MatriculacionServiceImpl implements IMatricula {
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "INSERT INTO matricula (id_alumno, id_curso, nota) VALUES (?, ?, ?, )";
+            String sql = "INSERT INTO matricula (id_alumno, id_curso, nota) VALUES (?, ?, ?, ? )";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, matricula.getId_alumno());
             stmt.setInt(2, matricula.getId_curso());
