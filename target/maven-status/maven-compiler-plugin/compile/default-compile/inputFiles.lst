@@ -1,10 +1,14 @@
-C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\forms\MenuForm.java
-C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\services\AlumnoServiceImpl.java
-C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\models\Alumno.java
+C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\forms\InfoAlumnoForm.java
 C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\models\Profesor.java
 C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\services\IAlumno.java
 C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\DAO\BaseDatos.java
 C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\AcademiaIdiomas.java
 C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\services\IProfesor.java
+C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\models\Colegio.java
 C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\services\ProfesorServiceImpl.java
+C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\forms\MenuForm.java
+C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\services\AlumnoServiceImpl.java
+C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\models\Alumno.java
+C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\services\IColegio.java
+C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\services\ColegioServiceImpl.java
 C:\Users\luish\Documents\NetBeansProjects\AcademiaIdiomas\src\main\java\com\grupocuatro\academiaidiomas\forms\AlumnosForm.java

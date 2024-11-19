@@ -2,13 +2,16 @@ package com.grupocuatro.academiaidiomas;
 
 import com.grupocuatro.academiaidiomas.models.Alumno;
 import com.grupocuatro.academiaidiomas.services.AlumnoServiceImpl;
+import com.grupocuatro.academiaidiomas.services.ColegioServiceImpl;
 
 public class AcademiaIdiomas {
 
     public static void main(String[] args) {
 
-        //AlumnoServiceImpl al = new AlumnoServiceImpl();
-
+        /**AlumnoServiceImpl al = new AlumnoServiceImpl();
+        ColegioServiceImpl c = new ColegioServiceImpl();*/
+        
+        
         /**Alumno alumno1 = new Alumno("Carlos", "Abreu", 8, "bbsshfcfaf", "afafafaf", "111111111");
         Alumno alumno2 = new Alumno("Alejandro", "Castellano", 8, "bbsshgcfcf", "afafafaf", "111111111");
         Alumno alumno3 = new Alumno("Victor", "Gomez", 8, "bbsshgcfbf", "afafafaf", "111111111");

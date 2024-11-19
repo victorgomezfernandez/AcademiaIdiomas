@@ -12,8 +12,9 @@ public class Alumno {
     private String dni;
     private String direccion;
     private String telefono;
+    private Integer colegioId;
 
-    public Alumno(String nombre, String apellidos, int edad, String dni, String direccion, String telefono) {
+    public Alumno(String nombre, String apellidos, int edad, String dni, String direccion, String telefono, Integer colegioId) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellidos;
@@ -21,7 +22,15 @@ public class Alumno {
         this.dni = dni;
         this.direccion = direccion;
         this.telefono = telefono;
+        this.colegioId = colegioId;
+        
     }
+
+    public Alumno(String nombre, String apellido, int edad, String dni, String direccion, String telefono) {
+        this(nombre, apellido, edad, dni, direccion, telefono, null );
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -78,6 +87,24 @@ public class Alumno {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Integer getColegioId() {
+        return colegioId;
+    }
+
+    public void setColegioId(Integer colegioId) {
+        this.colegioId = colegioId;
+    }
+    
+    
     
     
     

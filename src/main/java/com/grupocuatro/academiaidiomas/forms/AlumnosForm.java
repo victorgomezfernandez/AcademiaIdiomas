@@ -63,6 +63,7 @@ public class AlumnosForm extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         ActualizarButton = new javax.swing.JButton();
         AddAlumno = new javax.swing.JButton();
+        HistorialButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +134,13 @@ public class AlumnosForm extends javax.swing.JFrame {
             }
         });
 
+        HistorialButton.setText("Historial Académico");
+        HistorialButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HistorialButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,7 +153,9 @@ public class AlumnosForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DeleteButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ActualizarButton))
+                        .addComponent(ActualizarButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(HistorialButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -164,7 +174,8 @@ public class AlumnosForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BackButtom)
                     .addComponent(DeleteButton)
-                    .addComponent(ActualizarButton))
+                    .addComponent(ActualizarButton)
+                    .addComponent(HistorialButton))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -250,6 +261,34 @@ public class AlumnosForm extends javax.swing.JFrame {
         cargarAlumnosEnTabla();
     }//GEN-LAST:event_AddAlumnoActionPerformed
 
+    private void HistorialButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistorialButtonActionPerformed
+        AlumnoServiceImpl service = new AlumnoServiceImpl();
+
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            Boolean isSelected = (Boolean) jTable1.getValueAt(i, 7);
+            if (isSelected != null && isSelected) {
+
+                Integer id = (Integer) jTable1.getValueAt(i, 0);
+                Alumno alumno = service.mostrarAlumnos(id);
+
+                Integer alumnoID = (Integer) alumno.getId();
+                String nombre = alumno.getNombre();
+                String apellido = alumno.getApellidos();
+                Integer edad = alumno.getEdad();
+                String dni = alumno.getDni();
+                String direccion = alumno.getDireccion();
+                String telefono = alumno.getTelefono();
+                Integer colegioId = alumno.getColegioId();
+                InfoAlumnoForm historialForm = new InfoAlumnoForm(alumnoID, nombre, apellido, edad, dni, direccion, telefono, colegioId);
+                historialForm.setVisible(true);
+                this.dispose();
+
+                break;
+
+            }
+        }
+    }//GEN-LAST:event_HistorialButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -290,6 +329,7 @@ public class AlumnosForm extends javax.swing.JFrame {
     private javax.swing.JButton AddAlumno;
     private javax.swing.JButton BackButtom;
     private javax.swing.JButton DeleteButton;
+    private javax.swing.JButton HistorialButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

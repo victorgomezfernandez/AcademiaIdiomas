@@ -32,6 +32,8 @@
                       <Component id="DeleteButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ActualizarButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="HistorialButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="456" max="-2" attributes="0"/>
               </Group>
@@ -57,6 +59,7 @@
                   <Component id="BackButtom" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="DeleteButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ActualizarButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="HistorialButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="76" max="-2" attributes="0"/>
@@ -230,6 +233,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddAlumnoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="HistorialButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Historial Acad&#xe9;mico"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HistorialButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

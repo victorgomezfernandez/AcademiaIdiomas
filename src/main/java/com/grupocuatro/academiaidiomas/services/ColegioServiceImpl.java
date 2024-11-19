@@ -2,6 +2,7 @@ package com.grupocuatro.academiaidiomas.services;
 
 import com.grupocuatro.academiaidiomas.DAO.BaseDatos;
 import com.grupocuatro.academiaidiomas.models.Alumno;
+import com.grupocuatro.academiaidiomas.models.Colegio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,24 +14,19 @@ import java.util.List;
  *
  * @author luish
  */
-public class AlumnoServiceImpl implements IAlumno {
+public class ColegioServiceImpl implements IColegio {
 
     @Override
-    public boolean agregarAlumno(Alumno alumno) {
+    public boolean agregarColegio(Colegio colegio) {
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
         try {
-            String sql = "INSERT INTO alumno (nombre, apellido, edad, dni, direccion, telefono, colegioId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO colegio (nombre, direccion) VALUES (?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, alumno.getNombre());
-            stmt.setString(2, alumno.getApellidos());
-            stmt.setInt(3, alumno.getEdad());
-            stmt.setString(4, alumno.getDni());
-            stmt.setString(5, alumno.getDireccion());
-            stmt.setString(6, alumno.getTelefono());
-            stmt.setInt(7, alumno.getColegioId());
+            stmt.setString(1, colegio.getNombre());
+            stmt.setString(2, colegio.getDireccion());
 
             stmt.executeUpdate();
             return true;
@@ -49,13 +45,13 @@ public class AlumnoServiceImpl implements IAlumno {
     }
 
     @Override
-    public boolean eliminarAlumno(int id) {
+    public boolean eliminarColegio(int id) {
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
 
         try {
-            String sql = "DELETE FROM alumno WHERE id = " + id;
+            String sql = "DELETE FROM colegio WHERE id = " + id;
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.executeUpdate();
@@ -77,23 +73,18 @@ public class AlumnoServiceImpl implements IAlumno {
     }
 
     @Override
-    public boolean actualizarAlumno(int id, Alumno alumno) {
+    public boolean actualizarColegio(int id, Colegio colegio) {
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
 
         try {
-            String sql = "UPDATE alumno SET nombre = ?, apellido = ?, edad = ?, dni = ?, direccion = ?, telefono = ?, colegioId = ? WHERE id = ?";
+            String sql = "UPDATE colegio SET nombre = ?, direccion = ? WHERE id = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, alumno.getNombre());
-            stmt.setString(2, alumno.getApellidos());
-            stmt.setInt(3, alumno.getEdad());
-            stmt.setString(4, alumno.getDni());
-            stmt.setString(5, alumno.getDireccion());
-            stmt.setString(6, alumno.getTelefono());
-            stmt.setInt(7, alumno.getColegioId());
-            stmt.setInt(8, id);
+            stmt.setString(1, colegio.getNombre());
+            stmt.setString(2, colegio.getDireccion());
+            stmt.setInt(7, id);
 
             stmt.executeUpdate();
             return true;
@@ -112,33 +103,31 @@ public class AlumnoServiceImpl implements IAlumno {
     }
 
     @Override
-    public Alumno mostrarAlumnos(int id) {
+    public Colegio mostrarColegio(int id) {
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
 
-        Alumno alumno = null;
+        Colegio colegio = null;
 
         try {
-            String sql = "SELECT * FROM alumno WHERE id = " + id + "";
+            String sql = "SELECT * FROM colegio WHERE id = " + id + "";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                int alumnoId = rs.getInt("id");
+                int colegioId = rs.getInt("id");
                 String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-                int edad = rs.getInt("edad");
-                String dni = rs.getString("dni");
                 String direccion = rs.getString("direccion");
-                String telefono = rs.getString("telefono");
-                Integer colegioId = rs.getInt("colegio_Id");
 
-                alumno = new Alumno(nombre, apellido, edad, dni, direccion, telefono, colegioId);
-                alumno.setId(alumnoId);  // Establece el ID que no se pasa en el constructor
+                colegio = new Colegio(nombre, direccion);
+                colegio.setId(colegioId);  // Establece el ID que no se pasa en el constructor
 
-                
+                // Imprimir los datos por la terminal
+                System.out.println("Alumno: " + colegioId);
+                System.out.println("Nombre: " + nombre);
+                System.out.println("Dirección: " + direccion);
             }
         } catch (Exception e) {
             System.out.println("Error al mostrar alumno: " + e.getMessage());
@@ -152,40 +141,44 @@ public class AlumnoServiceImpl implements IAlumno {
             }
         }
 
-        return alumno;
+        return colegio;
     }
 
     @Override
-    public List<Alumno> listarAlumnos() {
+    public List<Colegio> listarColegios() {
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
 
-        List<Alumno> alumnos = new ArrayList<>();
+        List<Colegio> colegios = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM alumno";
+            String sql = "SELECT * FROM colegio";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-                int edad = rs.getInt("edad");
-                String dni = rs.getString("dni");
                 String direccion = rs.getString("direccion");
-                String telefono = rs.getString("telefono");
-                Integer colegioId = rs.getInt("colegio_Id");
 
-                Alumno alumno = new Alumno(nombre, apellido, edad, dni, direccion, telefono, colegioId);
-                alumno.setId(id);  
-                alumnos.add(alumno);
+                Colegio colegio = new Colegio(nombre, direccion);
+                colegio.setId(id);
+                colegios.add(colegio);
 
-                
+                // Imprimir los datos de cada alumno por la terminal
+                /**
+                 * System.out.println("Alumno: " + id);
+                 * System.out.println("Nombre: " + nombre);
+                 * System.out.println("Apellido: " + apellido);
+                 * System.out.println("Edad: " + edad); System.out.println("DNI:
+                 * " + dni); System.out.println("Dirección: " + direccion);
+                 * System.out.println("Teléfono: " + telefono);
+                 * System.out.println("-------------------------------");
+                 */
             }
         } catch (Exception e) {
-            System.out.println("Error al listar alumnos: " + e.getMessage());
+            System.out.println("Error al listar colegios: " + e.getMessage());
         } finally {
             try {
                 if (conn != null) {
@@ -196,7 +189,7 @@ public class AlumnoServiceImpl implements IAlumno {
             }
         }
 
-        return alumnos;
+        return colegios;
     }
 
 }
