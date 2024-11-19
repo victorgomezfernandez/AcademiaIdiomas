@@ -6,6 +6,7 @@ import com.grupocuatro.academiaidiomas.services.IMatricula;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -42,9 +43,9 @@ public class MatriculacionServiceImpl implements IMatricula {
         base.conectar();
         Connection conn = base.getConn();
         try {
-         String sql = "DELETE FROM matricula WHERE id LIKE " + id;
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         stmt.executeUpdate();
+            String sql = "DELETE FROM matricula WHERE id LIKE " + id;
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.executeUpdate();
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -85,7 +86,45 @@ public class MatriculacionServiceImpl implements IMatricula {
 
     @Override
     public Matricula mostrarMatricula(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        BaseDatos base = new BaseDatos();
+        base.conectar();
+        Connection conn = base.getConn();
+
+        Matricula matricula = null;
+
+        try {
+            String sql = "SELECT * FROM matricula WHERE id = " + id + "";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                int idMatricula = rs.getInt("id");
+                int id_curso = rs.getInt("id_curso");
+                int id_alumno = rs.getInt("id_alumno");
+                int nota = rs.getInt("nota");
+
+                matricula = new Matricula(id, id_curso, id_alumno, nota);
+                matricula.setId(idMatricula);  // Establece el ID que no se pasa en el constructor
+
+                // Imprimir los datos por la terminal
+                System.out.println("id: " + id);
+                System.out.println("id_curso: " + id_curso);
+                System.out.println("id_alumno: " + id_alumno);
+                System.out.println("nota: " + nota);
+            }
+        } catch (Exception e) {
+            System.out.println("Error al mostrar matricula: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error cerrando conexión: " + e.getMessage());
+            }
+        }
+        return null;
     }
 
     @Override
