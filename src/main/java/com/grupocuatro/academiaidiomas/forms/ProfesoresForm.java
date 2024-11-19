@@ -87,6 +87,11 @@ public class ProfesoresForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(profesoresTable);
 
         volverButton.setText("Volver");
+        volverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Borrar");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -172,17 +177,17 @@ public class ProfesoresForm extends javax.swing.JFrame {
         borrarProfesor();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void borrarProfesor(){
+    private void borrarProfesor() {
         DefaultTableModel modelo = (DefaultTableModel) profesoresTable.getModel();
         int filaSeleccionada = profesoresTable.getSelectedRow();
-        if(filaSeleccionada >=0){
+        if (filaSeleccionada >= 0) {
             Object idObj = modelo.getValueAt(filaSeleccionada, 0);
             int id = Integer.parseInt(idObj.toString());
             profesorService.eliminarProfesor(id);
             cargarProfesoresEnTabla();
         }
     }
-    
+
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         cargarProfesoresEnTabla();
     }//GEN-LAST:event_updateButtonActionPerformed
@@ -191,26 +196,50 @@ public class ProfesoresForm extends javax.swing.JFrame {
         nuevoProfesor();
     }//GEN-LAST:event_nuevoButtonActionPerformed
 
+    private void volverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_volverButtonActionPerformed
+
     private void nuevoProfesor() {
-        DefaultTableModel modelo = (DefaultTableModel) nuevoProfesorTable.getModel();
-        if (modelo.getRowCount() > 0) {
-            Object idObj = modelo.getValueAt(0, 0);
-            Object nombreObj = modelo.getValueAt(0, 1);
-            Object apellidosObj = modelo.getValueAt(0, 2);
-            Object dniObj = modelo.getValueAt(0, 3);
-            Object direccionObj = modelo.getValueAt(0, 4);
-            Object telefonoObj = modelo.getValueAt(0, 5);
-            String id = idObj != null ? idObj.toString(): "";
+        DefaultTableModel modeloNuevo = (DefaultTableModel) nuevoProfesorTable.getModel();
+        DefaultTableModel modeloProfesores = (DefaultTableModel) profesoresTable.getModel();
+        boolean idExistente = false;
+        if (modeloNuevo.getRowCount() > 0) {
+            Object idObj = modeloNuevo.getValueAt(0, 0);
+            Object nombreObj = modeloNuevo.getValueAt(0, 1);
+            Object apellidosObj = modeloNuevo.getValueAt(0, 2);
+            Object dniObj = modeloNuevo.getValueAt(0, 3);
+            Object direccionObj = modeloNuevo.getValueAt(0, 4);
+            Object telefonoObj = modeloNuevo.getValueAt(0, 5);
+            String id = idObj != null ? idObj.toString() : "";
             String nombre = nombreObj != null ? nombreObj.toString() : "";
             String apellidos = apellidosObj != null ? apellidosObj.toString() : "";
             String dni = dniObj != null ? dniObj.toString() : "";
             String direccion = direccionObj != null ? direccionObj.toString() : "";
             String telefono = telefonoObj != null ? telefonoObj.toString() : "";
-            if(id.isEmpty() || nombre.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || direccion.isEmpty() || telefono.isEmpty()){
+            if (!id.isEmpty()) {
+                if (nombre.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || direccion.isEmpty() || telefono.isEmpty()) {
+                    System.out.println("Completa todos los campos");
+                } else {
+                    for (int i = 0; i < modeloProfesores.getRowCount(); i++) {
+                        if (modeloProfesores.getValueAt(i, 0).toString().equals(id)) {
+                            Profesor profesor = new Profesor(nombre, apellidos, dni, direccion, telefono);
+                            profesor.setId(Integer.parseInt(id));
+                            profesorService.actualizarProfesor(profesor);
+                            cargarProfesoresEnTabla();
+                        }
+                        idExistente = true;
+                        break;
+                    }
+                }
+            }
+            if (nombre.isEmpty() || apellidos.isEmpty() || dni.isEmpty() || direccion.isEmpty() || telefono.isEmpty()) {
                 System.out.println("Completa todos los campos");
             } else {
-                Profesor nuevo = new Profesor(nombre,apellidos,dni,direccion,telefono);
-                nuevo.setId(Integer.parseInt(id));
+                Profesor nuevo = new Profesor(nombre, apellidos, dni, direccion, telefono);
+                if (!id.isEmpty()) {
+                    nuevo.setId(Integer.parseInt(id));
+                }
                 profesorService.agregarProfesor(nuevo);
                 cargarProfesoresEnTabla();
             }

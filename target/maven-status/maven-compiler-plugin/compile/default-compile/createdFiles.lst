@@ -15,4 +15,5 @@ com\grupocuatro\academiaidiomas\AcademiaIdiomas.class
 com\grupocuatro\academiaidiomas\DAO\BaseDatos.class
 com\grupocuatro\academiaidiomas\services\AlumnoServiceImpl.class
 com\grupocuatro\academiaidiomas\forms\ProfesoresForm$2.class
+com\grupocuatro\academiaidiomas\forms\ProfesoresForm$7.class
 com\grupocuatro\academiaidiomas\forms\MenuForm.class

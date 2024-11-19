@@ -4,9 +4,6 @@
  */
 package com.grupocuatro.academiaidiomas.forms;
 
-import com.grupocuatro.academiaidiomas.models.Profesor;
-import com.grupocuatro.academiaidiomas.services.ProfesorServiceImpl;
-import java.util.List;
 
 /**
  *
@@ -48,16 +45,16 @@ public class MenuForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
+                .addGap(94, 94, 94)
                 .addComponent(teachersButton)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(134, 134, 134)
+                .addGap(96, 96, 96)
                 .addComponent(teachersButton)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         pack();
