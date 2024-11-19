@@ -14,7 +14,7 @@ import java.util.List;
 public interface IProfesor {
     public boolean agregarProfesor(Profesor profesor);
     public boolean eliminarProfesor(int id);
-    public boolean actualizarProfesor(int id);
+    public boolean actualizarProfesor(Profesor profesor);
     public Profesor mostrarProfesores(int id);
     public List<Profesor> listarProfesores();
 }
