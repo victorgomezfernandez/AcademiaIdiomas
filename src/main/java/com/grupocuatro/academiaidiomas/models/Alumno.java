@@ -5,6 +5,7 @@ package com.grupocuatro.academiaidiomas.models;
  * @author luish
  */
 public class Alumno {
+
     private int id;
     private String nombre;
     private String apellido;
@@ -15,7 +16,6 @@ public class Alumno {
     private Integer colegioId;
 
     public Alumno(String nombre, String apellidos, int edad, String dni, String direccion, String telefono, Integer colegioId) {
-        this.id = id;
         this.nombre = nombre;
         this.apellido = apellidos;
         this.edad = edad;
@@ -23,14 +23,11 @@ public class Alumno {
         this.direccion = direccion;
         this.telefono = telefono;
         this.colegioId = colegioId;
-        
     }
 
     public Alumno(String nombre, String apellido, int edad, String dni, String direccion, String telefono) {
-        this(nombre, apellido, edad, dni, direccion, telefono, null );
+        this(nombre, apellido, edad, dni, direccion, telefono, null);
     }
-    
-    
 
     public int getId() {
         return id;
@@ -103,10 +100,5 @@ public class Alumno {
     public void setColegioId(Integer colegioId) {
         this.colegioId = colegioId;
     }
-    
-    
-    
-    
-    
-    
+
 }
