@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -143,7 +144,7 @@ public class ProfesorServiceImpl implements IProfesor {
 
     @Override
     public List<Profesor> listarProfesores() {
-        List<Profesor> profesores = new LinkedList<>();
+        List<Profesor> profesores = new ArrayList<>();
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
