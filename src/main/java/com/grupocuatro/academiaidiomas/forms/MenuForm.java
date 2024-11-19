@@ -63,6 +63,7 @@ public class MenuForm extends javax.swing.JFrame {
     private void teachersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teachersButtonActionPerformed
         ProfesoresForm pf = new ProfesoresForm();
         pf.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_teachersButtonActionPerformed
 
     
