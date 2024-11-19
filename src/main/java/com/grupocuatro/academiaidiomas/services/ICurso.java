@@ -12,7 +12,7 @@ public interface  ICurso {
     public boolean Update(int id);
     public Curso Show(int id);
     public List<Curso> ShowAll();
-    public List<Curso> listarIdiomaYNivel(int idAlumno);
+    public List<Curso> obtenerCursosPorAlumno(int idAlumno);
 }
     
 

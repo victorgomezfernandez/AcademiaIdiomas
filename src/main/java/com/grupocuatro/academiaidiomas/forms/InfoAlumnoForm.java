@@ -50,28 +50,55 @@ public class InfoAlumnoForm extends javax.swing.JFrame {
     }
 
     private void cargarNotasEnTabla(int idAlumno) {
+        // Obtener las notas y los cursos del alumno
         List<Integer> notas = matriculaService.listarNotas(idAlumno);
+        List<Curso> cursosDelAlumno = cursoService.obtenerCursosPorAlumno(idAlumno);
 
-        
+        // Inicializamos el modelo de la tabla y la limpiamos
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
+        System.out.println("Cursos: " + cursosDelAlumno.size());
+        System.out.println("Notas: " + notas.size());
+        // Comprobamos que las listas de cursos y notas tengan el mismo tamaño
+        if (notas.size() == cursosDelAlumno.size()) {
+            // Recorremos los cursos y asociamos cada curso con su respectiva nota
+            for (int i = 0; i < cursosDelAlumno.size(); i++) {
+                Curso curso = cursosDelAlumno.get(i);
+                Integer nota = notas.get(i);
 
-        
-        for (Integer nota : notas) {
-            model.addRow(new Object[]{"Curso desconocido","", nota}); 
+                // Obtenemos el idioma y el nivel del curso
+                String idioma = curso.getIdioma();
+                String nivel = curso.getNivel();
+
+                // Añadimos una fila a la tabla con la información del curso y la nota
+                model.addRow(new Object[]{idioma, nivel, nota});
+            }
+        } else {
+            // Si las listas no coinciden en tamaño, lanzamos un error o manejamos la situación
+            System.err.println("El número de cursos y notas no coincide.");
         }
     }
-    
-    /**public void cargarCursoTabla() {
-        
-    List 
-    for (int i = 0; i < model.getRowCount(); i++) {
-        // Aquí actualizamos la segunda columna de la tabla, pero dejamos intactas las demás columnas
-        model.setValueAt("Nuevo valor", i, 1);  // Actualiza la segunda columna
-        model.setValueAt(notas.get(i), i, 2);   // Actualiza la columna de la nota (columna 3, índice 2)
-    }
-}*/
 
+    /**
+     * private void cargarNotasEnTabla(int idAlumno) { List<Integer> notas =
+     * matriculaService.listarNotas(idAlumno);
+     *
+     * DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+     * model.setRowCount(0);
+     *
+     * for (Integer nota : notas) { model.addRow(new Object[]{"Curso
+     * desconocido", "", nota}); }
+    }
+     */
+    /**
+     * public void cargarCursoTabla() {
+     *
+     * List for (int i = 0; i < model.getRowCount(); i++) { // Aquí actualizamos
+     * la segunda columna de la tabla, pero dejamos intactas las demás columnas
+     * model.setValueAt("Nuevo valor", i, 1); // Actualiza la segunda columna
+     * model.setValueAt(notas.get(i), i, 2); // Actualiza la columna de la nota
+     * (columna 3, índice 2) } }
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

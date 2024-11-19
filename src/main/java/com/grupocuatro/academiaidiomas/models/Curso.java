@@ -19,7 +19,7 @@ public class Curso {
     private String fechaIni;
 
     public Curso(String idioma, String nivel, String duracion, String horaFin, String horaIni, String fechaFin, String fechaIni) {
-        this.id=id;
+        this.id = id;
         this.idioma = idioma;
         this.nivel = nivel;
         this.duracion = duracion;

@@ -127,37 +127,40 @@ public class CursoServiceImpl implements ICurso {
 
     }
 
-    public List<Curso> listarIdiomaYNivel(int idAlumno) {
+    public List<Curso> obtenerCursosPorAlumno(int idAlumno) {
         BaseDatos base = new BaseDatos();
         base.conectar();
         Connection conn = base.getConn();
         List<Curso> listaCursos = new ArrayList<>();
 
         try {
+            // Consulta para obtener los cursos donde el alumno esté matriculado
             String sql = """
-        SELECT c.id, c.idioma, c.nivel, c.duracion, c.horaFin, c.horaIni, c.fechaFin, c.fechaIni
+        SELECT c.id, c.idioma, c.nivel, c.duracion, c.hora_ini, c.fecha_ini, c.hora_fin, c.fecha_fin
         FROM curso c
-        INNER JOIN matricula m ON c.id = m.id_curso
-        WHERE m.id_alumno = ?
+        JOIN matricula m ON c.id = m.id_curso
+        WHERE m.id_alumno = ?;
         """;
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idAlumno);
+            stmt.setInt(1, idAlumno); // Establecemos el id del alumno
 
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
+                // Creación del objeto Curso a partir de los resultados de la consulta
                 int idCurso = rs.getInt("id");
                 String idioma = rs.getString("idioma");
                 String nivel = rs.getString("nivel");
                 String duracion = rs.getString("duracion");
-                String horaFin = rs.getString("horaFin");
-                String horaIni = rs.getString("horaIni");
-                String fechaFin = rs.getString("fechaFin");
-                String fechaIni = rs.getString("fechaIni");
+                String horaIni = rs.getString("hora_ini");
+                String fechaIni = rs.getString("fecha_ini");
+                String horaFin = rs.getString("hora_fin");
+                String fechaFin = rs.getString("fecha_fin");
 
-                // Crear un nuevo objeto Curso con los datos obtenidos y agregarlo a la lista
+                // Crear el objeto Curso y añadirlo a la lista
                 Curso curso = new Curso(idioma, nivel, duracion, horaFin, horaIni, fechaFin, fechaIni);
-                curso.setId(idCurso); // Asegúrate de que el método setId esté en la clase Curso
+                curso.setId(idCurso); // Establecer el ID del curso
                 listaCursos.add(curso);
             }
 
@@ -167,6 +170,7 @@ public class CursoServiceImpl implements ICurso {
         } catch (SQLException e) {
             System.out.println("Error fetching cursos: " + e.getMessage());
         }
+
         return listaCursos;
     }
 
