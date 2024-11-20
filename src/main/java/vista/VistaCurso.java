@@ -4,6 +4,7 @@
  */
 package vista;
 
+import com.grupocuatro.academiaidiomas.forms.MenuForm;
 import com.grupocuatro.academiaidiomas.models.Curso;
 import com.grupocuatro.academiaidiomas.services.AcademiaController;
 
@@ -57,6 +58,7 @@ public class VistaCurso extends javax.swing.JFrame {
         inputIdProfesor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -358,6 +360,13 @@ public class VistaCurso extends javax.swing.JFrame {
             }
         });
 
+        backButton.setText("Volver");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -368,7 +377,9 @@ public class VistaCurso extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
+                        .addGap(26, 26, 26)
+                        .addComponent(backButton)
+                        .addGap(58, 58, 58)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -383,7 +394,9 @@ public class VistaCurso extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton))
                 .addGap(19, 19, 19))
         );
 
@@ -437,6 +450,12 @@ public class VistaCurso extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_inputIdProfesorActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.dispose();
+        MenuForm mf = new MenuForm();
+        mf.setVisible(true);
+    }//GEN-LAST:event_backButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -477,6 +496,7 @@ public class VistaCurso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField inputDuracion;
     private javax.swing.JTextField inputFechaFin;
     private javax.swing.JTextField inputFechaInicio;
