@@ -11,9 +11,9 @@ import java.sql.SQLException;
 
 
 public class BaseDatos {
-    private static final String URL = "jdbc:mysql: //localhost:3307/db_academia";
+    private static final String URL = "jdbc:mysql: //localhost:3306/db_academia";
     private static final String USER = "root"; //bdd_admin
-    private static final String PASSWORD = "1234"; //azkj-d53r-pm6y
+    private static final String PASSWORD = "S@nFrancisco"; //azkj-d53r-pm6y
 
     
     private Connection conn;
