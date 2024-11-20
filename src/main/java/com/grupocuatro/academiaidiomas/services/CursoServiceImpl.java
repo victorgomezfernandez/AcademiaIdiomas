@@ -63,7 +63,7 @@ public class CursoServiceImpl implements ICurso {
         Connection conn = base.getConn();
 
         try {
-            String sql = "UPDATE curso SET id_profesor=?, idioma=?, nivel=?, duracion=?, h_Inicio=?, f_Inicio=?, h_Fin=?, f_Fin=? WHERE id=?";
+            String sql = "UPDATE curso SET id_profesor=?, idioma=?, nivel=?, duracion=?, h_inicio=?, h_fin=?, f_inicio=?, f_fin=? WHERE id=?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, curso.getId_profesor());
@@ -132,6 +132,11 @@ public class CursoServiceImpl implements ICurso {
 
     @Override
     public boolean Update(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Curso> obtenerCursosPorAlumno(int idAlumno) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

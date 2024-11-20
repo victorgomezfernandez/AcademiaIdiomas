@@ -458,8 +458,8 @@ public class VistaCursoEditar extends javax.swing.JFrame {
                 inputNivel.getText(),
                 inputDuracion.getText(),
                 inputHoraInicio.getText(),
-                inputFechaInicio.getText(),
                 inputHoraFin.getText(),
+                inputFechaInicio.getText(),
                 inputFechaFin.getText()
         );
         newCurso.setId(curso.getId());
