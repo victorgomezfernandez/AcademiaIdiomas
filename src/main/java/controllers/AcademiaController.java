@@ -70,7 +70,7 @@ public class AcademiaController {
     }
 
     public void SubirNuevoCurso(int id_profesor, String idioma, String nivel, String duracion, String horaInicio, String horaFin, String fechaInicio, String fechaFin) {
-        Curso newCurso = new Curso(id_profesor, idioma, nivel, duracion, horaInicio, fechaInicio, horaFin, fechaFin);
+        Curso newCurso = new Curso(id_profesor, idioma, nivel, duracion, horaFin,horaInicio,  fechaFin, fechaInicio);
         cursoBd.Insert(newCurso);
     }
     
