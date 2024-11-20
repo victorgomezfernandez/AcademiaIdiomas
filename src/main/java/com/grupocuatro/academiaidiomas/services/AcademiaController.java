@@ -25,10 +25,11 @@ public class AcademiaController {
         List<Curso> cursos = new ArrayList<>();
         cursos = cursoBd.ShowAll();
         DefaultTableModel model = new DefaultTableModel();
-        String[] columnNames = {"Idioma", "Nivel", "Duración", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", ""};
+        String[] columnNames = {"ID_Profesor", "Idioma", "Nivel", "Duración", "Hora Inicio", "Hora Fin", "Fecha Inicio", "Fecha Fin", ""};
         model.setColumnIdentifiers(columnNames);
         for (Curso curso : cursos) {
             Object[] rowData = {
+                curso.getId_profesor(),
                 curso.getIdioma(),
                 curso.getNivel(),
                 curso.getDuracion(),
@@ -68,8 +69,8 @@ public class AcademiaController {
         cursoBd.Remove(id);
     }
 
-    public void SubirNuevoCurso(String idioma, String nivel, String duracion, String horaInicio, String horaFin, String fechaInicio, String fechaFin) {
-        Curso newCurso = new Curso(idioma, nivel, duracion, horaInicio, fechaInicio, horaFin, fechaFin);
+    public void SubirNuevoCurso(int id_profesor, String idioma, String nivel, String duracion, String horaInicio, String horaFin, String fechaInicio, String fechaFin) {
+        Curso newCurso = new Curso(id_profesor, idioma, nivel, duracion, horaFin,horaInicio,  fechaFin, fechaInicio);
         cursoBd.Insert(newCurso);
     }
     

@@ -10,6 +10,7 @@ package com.grupocuatro.academiaidiomas.models;
  */
 public class Curso {
     private int id;
+    private int id_profesor;
     private String idioma;
     private String nivel;
     private String duracion;
@@ -18,8 +19,9 @@ public class Curso {
     private String fechaFin;
     private String fechaIni;
 
-    public Curso(String idioma, String nivel, String duracion, String horaFin, String horaIni, String fechaFin, String fechaIni) {
-        this.id = id;
+    public Curso(int id_profesor, String idioma, String nivel, String duracion, String horaFin, String horaIni, String fechaFin, String fechaIni) {
+        this.id=id;
+        this.id_profesor = id_profesor;
         this.idioma = idioma;
         this.nivel = nivel;
         this.duracion = duracion;
@@ -27,6 +29,14 @@ public class Curso {
         this.horaIni = horaIni;
         this.fechaFin = fechaFin;
         this.fechaIni = fechaIni;
+    }
+
+    public int getId_profesor() {
+        return id_profesor;
+    }
+
+    public void setId_profesor(int id_profesor) {
+        this.id_profesor = id_profesor;
     }
 
     public int getId() {
@@ -93,7 +103,7 @@ public class Curso {
         this.fechaIni = fechaIni;
     }
 
-    
+  
 
    
     
